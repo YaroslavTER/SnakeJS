@@ -15,21 +15,18 @@ function SetIn(rowIndex, colIndex, moveDirection){
 
 function DrawField(){
     ctx.fillStyle = '#FF420E'
-    ctx.clearRect(0,0,rows,colums)
+    ctx.clearRect(0,0,snakesSide*rows,snakesSide*colums)
     for(var index = 0; index < snake.length; index++){
         var block = snake[index]
-        if(block.status)
-            ctx.fillRect(block.rowIndex*snakesSide, block.colIndex*snakesSide, snakesSide, snakesSide)
+        ctx.fillRect(block.rowIndex*snakesSide, block.colIndex*snakesSide, snakesSide, snakesSide)
     }
 }
 
 function Move(){
   for(var index = 0; index < snake.length; index++){
       var block = snake[index]
-      if(block.status){
-          if(block.moveDirection == 'right')
-              block.rowIndex++
-      }
+      if(block.moveDirection == 'right')
+          block.rowIndex++
   }
 }
 
