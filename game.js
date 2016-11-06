@@ -27,10 +27,10 @@ function Move(){
       var rowIndex = block.rowIndex;
       var colIndex = block.colIndex;
       snake.shift()
-      if(moveDirection == 'right') rowIndex++
-      else if(moveDirection == 'left') rowIndex--
-      else if(moveDirection == 'down') colIndex++
-      else if(moveDirection == 'up') colIndex--
+      if(moveDirection == 'right') rowIndex == rows/snakesSide - 1 ? rowIndex = 0 : rowIndex++
+      else if(moveDirection == 'left') rowIndex == 0 ? rowIndex = rows/snakesSide - 1 : rowIndex--
+      else if(moveDirection == 'down') colIndex == colums/snakesSide - 1 ? colIndex = 0 : colIndex++
+      else if(moveDirection == 'up') colIndex == 0 ? colIndex = colums/snakesSide - 1 : colIndex--
       PushBack(rowIndex, colIndex)
 }
 
