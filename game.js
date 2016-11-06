@@ -1,16 +1,16 @@
 var canvas = document.getElementById('canvas_id')
 var ctx = canvas.getContext('2d')
 var snakesSide = 20, rows = canvas.clientHeight, colums = canvas.clientWidth, moveTime = 250;
+var moveDirection = 'right'
 var snake = []
-var field = [[]]
 
-SetIn(0,0,'right')
-SetIn(1,0,'right')
-SetIn(2,0,'right')
-SetIn(3,0,'right')
+PushBack(0,0)
+PushBack(1,0)
+PushBack(2,0)
+PushBack(3,0)
 
-function SetIn(rowIndex, colIndex, moveDirection){
-    snake.push({rowIndex:rowIndex, colIndex: colIndex, moveDirection:moveDirection})
+function PushBack(rowIndex, colIndex){
+    snake.push({rowIndex:rowIndex, colIndex: colIndex})
 }
 
 function DrawField(){
@@ -23,26 +23,30 @@ function DrawField(){
 }
 
 function Move(){
-  for(var index = 0; index < snake.length; index++){
-      var block = snake[index]
-      if(block.moveDirection == 'right')
-          block.rowIndex == rows/snakesSide - 1 ? block.rowIndex = 0 : block.rowIndex++
-      else if(block.moveDirection == 'left')
-          block.rowIndex == 0 ? block.rowIndex = rows/snakesSide - 1 : block.rowIndex--
-      else if(block.moveDirection == 'up')
-              block.colIndex == 0 ? block.colIndex = colums/snakesSide - 1 : block.colIndex--
-      else if(block.moveDirection == 'down')
-          block.colIndex == colums/snakesSide - 1 ? block.colIndex = 0 : block.colIndex++
-  }
+      block = snake[snake.length-1];
+      var rowIndex = block.rowIndex;
+      var colIndex = block.colIndex;
+      snake.shift()
+      if(moveDirection == 'right') rowIndex++
+      else if(moveDirection == 'left') rowIndex--
+      else if(moveDirection == 'down') colIndex++
+      else if(moveDirection == 'up') colIndex--
+      PushBack(rowIndex, colIndex)
 }
 
-SetIn()
+//PushBack()
+//unshift - push in head
+
+document.addEventListener('keydown', function(event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which)
+    var head = snake[snake.length-1]
+    if(event.which == 37) moveDirection = 'left'
+    else if(event.which == 38) moveDirection = 'up'
+    else if (event.which == 39) moveDirection = 'right'
+    else if(event.which == 40) moveDirection = 'down'
+})
 
 mainGameCycle = setInterval(function(){
     DrawField()
     Move()
 },moveTime)
-
-document.addEventListener('keydown', function(event) {
-    var keycode = (event.keyCode ? event.keyCode : event.which)
-})
