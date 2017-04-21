@@ -1,3 +1,3 @@
 # SnakeJS
-Use arrows to snake constrol.
+Use arrows to snake control.
 http://snakejs.surge.sh/
